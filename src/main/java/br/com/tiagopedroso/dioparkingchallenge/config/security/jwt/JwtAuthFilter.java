@@ -1,11 +1,13 @@
 package br.com.tiagopedroso.dioparkingchallenge.config.security.jwt;
 
 import br.com.tiagopedroso.dioparkingchallenge.config.security.SecurityProperties;
+import br.com.tiagopedroso.dioparkingchallenge.exception.WrongTokenException;
+import br.com.tiagopedroso.dioparkingchallenge.tool.HttpResponseWriterHanlder;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     public static final String HEADER_AUTHORIZATION = "Authorization";
@@ -55,11 +58,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
-            e.printStackTrace();
-            System.out.println("\n\n\n JwtAuthFilter - catch \n\n\n");
-            response.setStatus(
-                    HttpStatus.FORBIDDEN.value()
+
+            final var exception = new WrongTokenException(token, request);
+
+            HttpResponseWriterHanlder.write(
+                    exception,
+                    request,
+                    response
             );
+
+            log.error(exception.getMessage());
         }
     }
 

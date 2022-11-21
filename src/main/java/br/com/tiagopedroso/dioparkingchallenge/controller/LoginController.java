@@ -10,6 +10,7 @@ import br.com.tiagopedroso.dioparkingchallenge.exception.WrongPasswordException;
 import br.com.tiagopedroso.dioparkingchallenge.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,7 @@ public class LoginController {
     private UserService service;
 
     @PostMapping
-    public SessionDto signIn(@RequestBody LoginDto login) {
+    public ResponseEntity<SessionDto> signIn(@RequestBody LoginDto login) {
         final var user = service.findByUsername(login.getUsername());
         final var passwordOk = encoder.matches(login.getPassword(), user.getPassword());
 
@@ -46,17 +47,19 @@ public class LoginController {
                 .roles(user.getRoles())
                 .build();
 
-        return SessionDto
-                .builder()
-                .username(user.getUsername())
-                .token(
-                        JwtHandler.createToken(
-                                SecurityProperties.PREFIX,
-                                SecurityProperties.KEY,
-                                jwtObject
+        return ResponseEntity.ok(
+                SessionDto
+                        .builder()
+                        .username(user.getUsername())
+                        .token(
+                                JwtHandler.createToken(
+                                        SecurityProperties.PREFIX,
+                                        SecurityProperties.KEY,
+                                        jwtObject
+                                )
                         )
-                )
-                .build();
+                        .build()
+        );
     }
 
 }

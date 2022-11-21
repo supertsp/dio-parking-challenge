@@ -1,7 +1,7 @@
 package br.com.tiagopedroso.dioparkingchallenge.config.security;
 
 import br.com.tiagopedroso.dioparkingchallenge.config.security.jwt.JwtAuthFilter;
-import br.com.tiagopedroso.dioparkingchallenge.exception.JwtAuthExceptionHandler;
+import br.com.tiagopedroso.dioparkingchallenge.exception.handler.JwtAuthExceptionHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

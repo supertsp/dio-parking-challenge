@@ -1,32 +1,33 @@
-package br.com.tiagopedroso.dioparkingchallenge.exception;
+package br.com.tiagopedroso.dioparkingchallenge.exception.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.MediaType;
+import br.com.tiagopedroso.dioparkingchallenge.exception.UnauthorizedResourceException;
+import br.com.tiagopedroso.dioparkingchallenge.tool.HttpResponseWriterHanlder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class JwtAuthExceptionHandler implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-            throws IOException, ServletException {
-
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setStatus(UnauthorizedResourceException.STATUS);
+            throws IOException {
 
         final var exception = new UnauthorizedResourceException(request);
-        final var mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), exception.generateResponseBody());
 
-        //Is this necessary for logs? 🤔
-        throw new UnauthorizedResourceException();
+        HttpResponseWriterHanlder.write(
+                exception,
+                request,
+                response
+        );
+
+        log.error(exception.getMessage());
     }
 
 }

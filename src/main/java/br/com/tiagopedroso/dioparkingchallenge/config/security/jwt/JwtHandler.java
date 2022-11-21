@@ -24,7 +24,7 @@ public class JwtHandler {
                 .signWith(SignatureAlgorithm.HS512, key)
                 .compact();
 
-        return prefix + " " + token;
+        return token;
     }
 
     private static List<String> adaptRoles(List<String> roles) {

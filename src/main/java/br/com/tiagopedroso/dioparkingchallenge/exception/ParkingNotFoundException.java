@@ -8,8 +8,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
 public class ParkingNotFoundException extends BusinessException {
 
+    public static final String MESSAGE = "Parking not found with Id: '%s'";
+
     public ParkingNotFoundException(String id) {
-        super("Parking not found with Id: %s", id);
+        super(
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                null,
+                MESSAGE, id
+        );
     }
 
 }
