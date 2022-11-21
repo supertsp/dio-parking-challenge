@@ -30,30 +30,8 @@ public class SecurityConfig {
     Example with JWT Login:   https://www.bezkoder.com/spring-boot-security-login-jwt/
     Example with JWT + MySQL: https://www.bezkoder.com/spring-boot-login-example-mysql/
 
-     */
-
-
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.headers().frameOptions().disable();
-//
-//        http
-//                .cors().and().csrf().disable()
-//                .addFilterAfter(new JwtFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers(SWAGGER_WHITELIST).permitAll()
-//                .antMatchers(HttpMethod.POST,BASE_URI + "/login").permitAll()
-//                .anyRequest().permitAll();
-////                .anyRequest().authenticated()
-////                .and()
-////                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
-//        //TODO: .antMatchers(HttpMethod.GET,"/users").hasAnyRole("USERS","MANAGERS")
-//
-//        return http.build();
-//    }
+    TIP for Roles: .antMatchers(HttpMethod.GET,"/users").hasAnyRole("USERS","MANAGERS")
+    */
 
     JwtAuthExceptionHandler jwtAuthExceptionHandler;
 
@@ -71,14 +49,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .antMatchers(URIS_WHITELIST).permitAll()
                         .antMatchers(SWAGGER_WHITELIST).permitAll()
-//                        .anyRequest().permitAll()
                         .anyRequest().authenticated()
                 )
-
-//                .httpBasic(withDefaults())
                 .build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

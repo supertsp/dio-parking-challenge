@@ -13,7 +13,7 @@ Link Certificado: https://www.dio.me/certificate/A315C22B
 
 ### Create & Run 
 ```shell
-$ docker-compose up
+$ docker-compose up -d
 ```
 
 ### Stop

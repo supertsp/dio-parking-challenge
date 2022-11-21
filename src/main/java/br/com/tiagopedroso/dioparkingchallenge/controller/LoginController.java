@@ -53,7 +53,6 @@ public class LoginController {
                         .username(user.getUsername())
                         .token(
                                 JwtHandler.createToken(
-                                        SecurityProperties.PREFIX,
                                         SecurityProperties.KEY,
                                         jwtObject
                                 )

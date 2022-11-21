@@ -22,6 +22,11 @@ import java.util.Map;
 @JsonIgnoreProperties({"cause", "localizedMessage", "stackTrace", "suppressed"})
 public abstract class BusinessException extends RuntimeException {
 
+    /*
+    Tips: https://auth0.com/blog/forbidden-unauthorized-http-status-codes/
+          https://restfulapi.net/http-status-codes/
+    */
+
     protected LocalDateTime timestamp = LocalDateTime.now();
     protected int status;
     protected String error;

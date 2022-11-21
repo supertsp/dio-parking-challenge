@@ -35,11 +35,6 @@ public class SecurityProperties {
             BASE_URI + "/users/**",
     };
 
-    public static final String
-            ROLE_USERS = "USERS",
-            ROLE_ADMIN = "ADMINS"
-    ;
-
     public void setPrefix(String prefix) {
         PREFIX = prefix;
     }

@@ -15,7 +15,7 @@ public class JwtHandler {
 
     public static final String ROLES_AUTHORITIES = "authorities";
 
-    public static String createToken(String prefix, String key, JwtObject jwtObject) {
+    public static String createToken(String key, JwtObject jwtObject) {
         final var token = Jwts.builder()
                 .setSubject(jwtObject.getSubject())
                 .setIssuedAt(jwtObject.getIssuedAtAsDate())

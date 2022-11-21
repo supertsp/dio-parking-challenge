@@ -46,8 +46,8 @@ public class RootController {
                     2022-11-15, supertsp
                   	    
                 </pre>
-                <a href="./swagger-ui.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Swagger API Doc</a><br>
-                <a href=":5430/browser/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Localhost pgAdmin</a>
+                <a href="./swagger-ui.html" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Swagger API Doc</a><br>
+                <a href="http://localhost:5430/browser/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Localhost pgAdmin 4</a>
                 </body>
                 </html>
                 """;
