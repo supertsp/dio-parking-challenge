@@ -90,7 +90,6 @@ public class ParkingController {
 
     @PostMapping("/{id}/exit")
     public ResponseEntity<ParkingDto> checkOut(@PathVariable String id) {
-        //TODO verificar se já não esta fechado e lançar exceção
         final var model = service.checkOut(id);
 
         return ResponseEntity.ok(
